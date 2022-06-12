@@ -6,35 +6,37 @@
       style="margin-top:15px"
       class="d-flex justify-content-center"
     >
-      <instrumento-item :instrumentoParam="instrumento"></instrumento-item>
+      <instrumento-item v-bind:instrumentoParam="instrumento"></instrumento-item>
     </div>
   </div>
 </template>
 
 <script>
-import InstrumentoComponent from "../components/InstrumentoComponent.vue";
+
+import InstrumentoItem from "@/components/InstrumentoItem.vue";
 
 export default {
   name: "ProductosItem",
   components: {
-    "instrumento-item": InstrumentoComponent,
+    "instrumento-item": InstrumentoItem
   },
   mounted() {
     this.getInstrumentos();
-  },
+  }, 
   data() {
     return {
-      instrumentosData: [],
+      instrumentosData: []
     };
   },
   methods: {
     async getInstrumentos() {
-      const res = await fetch("http://localhost:8080/instrumentos");
-      console.log(res);
+      const res = await fetch(
+        "http://localhost:3001/instrumentos"
+      );
       const resJson = await res.json();
-      console.log(resJson.instrumentos);
-      this.instrumentosData = resJson.instrumentos;
-    },
-  },
+      console.log(resJson);
+      this.instrumentosData = resJson;
+    }
+  }
 };
 </script>

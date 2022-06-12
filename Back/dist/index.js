@@ -10,4 +10,4 @@ require('./dbmysql');
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(rutas_1.default);
-app.listen(8081, () => console.log("Servidor en puerto 8081", 8081));
+app.listen(3001, () => console.log("Servidor en puerto 3001", 3001));

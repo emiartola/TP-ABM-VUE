@@ -13,22 +13,27 @@
                         <a class="nav-link active" aria-current="page" href="/"> Home </a>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/dondeEstamos" class="nav-link">Dónde Estamos</router-link>
+                        <router-link to="/where" class="nav-link">Dónde Estamos</router-link>
                     </li>
-                      <li class="nav-item">
+                    <li class="nav-item">
                         <router-link to="/productos" class="nav-link"> Productos </router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link to="/grilla" class="nav-link">Grilla Instrumentos</router-link>
+                    </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <!-- <form class="d-flex">
+                    <input class="form-control me-2" type="Text" placeholder="Buscar"  aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit" href="/instrumentosbuscar/" + {{termino}}> Search</button>
+                </form> -->
             </div>
         </div>
     </nav>
 </template>
 
 <script lang="ts">
-export default {};
+export default {
+}
 </script>
 
+<style lang=""></style>

@@ -3,15 +3,15 @@
     <b-card no-body class="overflow-hidden sizeImg">
       <b-row no-gutters>
         <b-col md="4">
-          <b-link :href="'/detalle/' + instrumentoParam.id"> 
+          <b-link :href="'/detalle/' + instrumentoParam.id">
             <b-card-img :src="'assets/images/' + instrumentoParam.imagen" alt="Image" class="rounded-0"></b-card-img>
           </b-link>
         </b-col>
         <b-col md="8">
           <b-card-body>
-            <b-card-title>{{ instrumentoParam.instrumento }}</b-card-title>
+            <b-card-title>{{ instrumentoParam.nombre }}</b-card-title>
             <b-card-sub-title class="mb-2 precio">
-              {{ instrumentoParam.precio }}
+              ${{ instrumentoParam.precio }}
             </b-card-sub-title>
             <b-card-text>
               <span v-if="instrumentoParam.costoEnvio == 'G'" class="gratis">
@@ -22,18 +22,23 @@
                 {{ instrumentoParam.costoEnvio }}
               </span>
             </b-card-text>
-            <b-card-text>{{ instrumentoParam.cantidadVendida }} Vendidos</b-card-text>
+            <b-card-text>{{ instrumentoParam.cantidadVendida }} Vendidos</b-card-text>  
           </b-card-body>
+
         </b-col>
       </b-row>
     </b-card>
   </b-container>
 </template>
+
+
 <script lang="ts">
 export default {
-  props: ["instrumentoParam"],
+  props: ["instrumentoParam"]
 };
 </script>
+
+
 <style scoped>
 .gratis {
   color: #00bd4f;

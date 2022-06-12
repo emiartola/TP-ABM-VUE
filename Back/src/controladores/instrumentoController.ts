@@ -112,6 +112,35 @@ export const getInstrumentoBySearch = (request: Request, response: Response) => 
   });
 }
 
+export const getInstrumentoByPrecio = (request: Request, response: Response) => {
+  new Promise((resolve, reject) => {
+    const min = request.params.precioDesde;
+    const max = request.params.precioHasta;
+    bd.getConnection((err, connection) => {
+      if (err) {
+        console.error(err);
+        response.send(err);
+        return;
+      }
+      console.log("bd MySql: ", connection.threadId);
+      connection.query(
+        "SELECT * FROM instrumento WHERE precio BETWEEN "+min+" AND " + max +";",
+        [min, max],
+        (err, resultado) => {
+          if (err) {
+            console.error(err);
+            response.send(err)
+          }
+          // console.log(resultado);
+          response.send(resultado);
+          
+        connection.release();
+        }
+      );
+    });
+  });
+}
+
 export const addInstrumento = (request: Request, response: Response) => {
   new Promise((resolve, reject) => {
     bd.getConnection((err, connection) => {
@@ -147,8 +176,6 @@ export const addInstrumento = (request: Request, response: Response) => {
 export const updateInstrumento = (request: Request, response: Response) => {
   new Promise((resolve, reject) => {
     const id = parseInt(request.body.id);
-    const precio = parseInt(request.body.precio);
-    const cantidadVendida= parseInt(request.body.cantidadVendida);
     bd.getConnection((err, connection) => {
       if (err) {
         console.error(err);
@@ -183,4 +210,6 @@ export const updateInstrumento = (request: Request, response: Response) => {
       );
     });
   });
+
+  
 }

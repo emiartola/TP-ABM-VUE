@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateInstrumento = exports.addInstrumento = exports.getInstrumentoBySearch = exports.deleteInstrumentoById = exports.getInstrumentoById = exports.getAllInstrumentos = void 0;
+exports.updateInstrumento = exports.addInstrumento = exports.getInstrumentoByPrecio = exports.getInstrumentoBySearch = exports.deleteInstrumentoById = exports.getInstrumentoById = exports.getAllInstrumentos = void 0;
 const dbmysql_1 = require("../dbmysql");
 const getAllInstrumentos = (request, response) => {
     new Promise((resolve, reject) => {
@@ -96,6 +96,30 @@ const getInstrumentoBySearch = (request, response) => {
     });
 };
 exports.getInstrumentoBySearch = getInstrumentoBySearch;
+const getInstrumentoByPrecio = (request, response) => {
+    new Promise((resolve, reject) => {
+        const min = request.params.precioDesde;
+        const max = request.params.precioHasta;
+        dbmysql_1.bd.getConnection((err, connection) => {
+            if (err) {
+                console.error(err);
+                response.send(err);
+                return;
+            }
+            console.log("bd MySql: ", connection.threadId);
+            connection.query("SELECT * FROM instrumento WHERE precio BETWEEN " + min + " AND " + max + ";", [min, max], (err, resultado) => {
+                if (err) {
+                    console.error(err);
+                    response.send(err);
+                }
+                // console.log(resultado);
+                response.send(resultado);
+                connection.release();
+            });
+        });
+    });
+};
+exports.getInstrumentoByPrecio = getInstrumentoByPrecio;
 const addInstrumento = (request, response) => {
     new Promise((resolve, reject) => {
         dbmysql_1.bd.getConnection((err, connection) => {
@@ -127,8 +151,6 @@ exports.addInstrumento = addInstrumento;
 const updateInstrumento = (request, response) => {
     new Promise((resolve, reject) => {
         const id = parseInt(request.body.id);
-        const precio = parseInt(request.body.precio);
-        const cantidadVendida = parseInt(request.body.cantidadVendida);
         dbmysql_1.bd.getConnection((err, connection) => {
             if (err) {
                 console.error(err);
